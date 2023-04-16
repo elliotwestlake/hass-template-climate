@@ -543,10 +543,10 @@ class TemplateClimate(TemplateEntity, ClimateEntity, RestoreEntity):
                 or self._target_temperature_low_template
             ):
                 self.async_write_ha_state()
-        else:
-            if self._target_temperature_template is None:
-                self._target_temp = kwargs.get(ATTR_TEMPERATURE)
-                self.async_write_ha_state()
+
+        if self._target_temperature_template is None:
+            self._target_temp = kwargs.get(ATTR_TEMPERATURE)
+            self.async_write_ha_state()
 
         # set temperature calls can contain a new hvac mode.
         if operation_mode := kwargs.get(ATTR_HVAC_MODE):
